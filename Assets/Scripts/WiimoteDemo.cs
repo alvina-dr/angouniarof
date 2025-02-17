@@ -2,9 +2,12 @@
 using System.Text;
 using UnityEngine;
 using WiimoteApi;
+using XCharts.Runtime;
 
 public class WiimoteDemo : MonoBehaviour
 {
+    public LineChart lineChart;
+    
     public WiimoteModel model;
     public RectTransform[] ir_dots;
     public RectTransform[] ir_bb;
@@ -21,6 +24,7 @@ public class WiimoteDemo : MonoBehaviour
     private void Start()
     {
         initial_rotation = model.rot.localRotation;
+        lineChart.ClearData();
     }
 
     private void Update()
@@ -28,6 +32,7 @@ public class WiimoteDemo : MonoBehaviour
         if (!WiimoteManager.HasWiimote()) return;
 
         wiimote = WiimoteManager.Wiimotes[0];
+        if (wiimote != null) wiimote.SendDataReportMode(InputDataType.REPORT_BUTTONS_ACCEL);
 
         int ret;
         do
@@ -44,9 +49,18 @@ public class WiimoteDemo : MonoBehaviour
                 model.rot.Rotate(offset, Space.Self);
             }
         } while (ret > 0);
+        
+        // Put the data inside a Vector3
+        Vector3 accel = new Vector3(wiimote.Accel.accel[0], wiimote.Accel.accel[1], wiimote.Accel.accel[2]);
+        
+        // Get the magnitude of the acceleration
+        float magnitude = accel.magnitude;
+        
+        // Add the magnitude to the line chart
+        lineChart.AddData(0, DateTime.Now, magnitude);
 
         // Length is always 3 (X, Y, Z)
-        Debug.Log($"Accel Data X: {wiimote.Accel.accel[0]}, Y: {wiimote.Accel.accel[1]}, Z: {wiimote.Accel.accel[2]}");
+        Debug.Log($"Accel Data X: {accel.x}, Y: {accel.y}, Z: {accel.z}, Magnitude: {magnitude}");
 
         if (model.a) model.a.enabled = wiimote.Button.a;
         if (model.b) model.b.enabled = wiimote.Button.b;
@@ -107,6 +121,11 @@ public class WiimoteDemo : MonoBehaviour
         if (GUILayout.Button("Find Wiimote"))
         {
             WiimoteManager.FindWiimotes();
+            if (wiimote != null)
+            {
+                wiimote.SendDataReportMode(InputDataType.REPORT_BUTTONS_ACCEL);
+            }
+
         }
 
         if (GUILayout.Button("Cleanup"))
