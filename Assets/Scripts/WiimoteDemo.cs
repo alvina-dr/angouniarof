@@ -45,11 +45,8 @@ public class WiimoteDemo : MonoBehaviour
             }
         } while (ret > 0);
 
-        Debug.Log("Accel Data:" + wiimote.Accel.accel.Length);
-        for (int i = 0; i < wiimote.Accel.accel.Length; i++)
-        {
-            Debug.Log(wiimote.Accel.accel[i]);
-        }
+        // Length is always 3 (X, Y, Z)
+        Debug.Log($"Accel Data X: {wiimote.Accel.accel[0]}, Y: {wiimote.Accel.accel[1]}, Z: {wiimote.Accel.accel[2]}");
 
         if (model.a) model.a.enabled = wiimote.Button.a;
         if (model.b) model.b.enabled = wiimote.Button.b;
