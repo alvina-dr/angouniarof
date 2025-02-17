@@ -65,7 +65,6 @@ public class WiimoteDemo : MonoBehaviour
         //Debug.Log($"Accel Data X: {accel.x}, Y: {accel.y}, Z: {accel.z}, Magnitude: {magnitude}");
         if (magnitude > GameManager.Instance.MinimumMagnitude) //Currently shooting
         {
-            Debug.Log("SHOOTING");
             if (magnitude > maxMagnitudeOfCurrentShot)
             {
                 maxMagnitudeOfCurrentShot = magnitude;
@@ -75,7 +74,6 @@ public class WiimoteDemo : MonoBehaviour
         {
             if (maxMagnitudeOfCurrentShot != 0)
             {
-                Debug.Log("END SHOOT");
                 GameManager.Instance.ScoreText.SetScore(maxMagnitudeOfCurrentShot);
             }
             maxMagnitudeOfCurrentShot = 0;
