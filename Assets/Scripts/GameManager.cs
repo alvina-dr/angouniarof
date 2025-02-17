@@ -23,4 +23,6 @@ public class GameManager : MonoBehaviour
 
     public UI_Score ScoreText;
     public float MinimumMagnitude;
+    public int ScoreboardSize;
+    public int CurrentScore;
 }

@@ -21,7 +21,7 @@ public class WiimoteDemo : MonoBehaviour
 
     private Vector3 wmpOffset = Vector3.zero;
 
-    private float maxMagnitudeOfCurrentShot;
+    private float _maxMagnitudeOfCurrentShot;
 
     private void Start()
     {
@@ -65,18 +65,19 @@ public class WiimoteDemo : MonoBehaviour
         //Debug.Log($"Accel Data X: {accel.x}, Y: {accel.y}, Z: {accel.z}, Magnitude: {magnitude}");
         if (magnitude > GameManager.Instance.MinimumMagnitude) //Currently shooting
         {
-            if (magnitude > maxMagnitudeOfCurrentShot)
+            if (magnitude > _maxMagnitudeOfCurrentShot)
             {
-                maxMagnitudeOfCurrentShot = magnitude;
+                _maxMagnitudeOfCurrentShot = magnitude;
             }
         }
         else //Currently not shooting
         {
-            if (maxMagnitudeOfCurrentShot != 0)
+            if (_maxMagnitudeOfCurrentShot != 0)
             {
-                GameManager.Instance.ScoreText.SetScore(maxMagnitudeOfCurrentShot);
+                GameManager.Instance.ScoreText.SetScore(_maxMagnitudeOfCurrentShot);
+                GameManager.Instance.CurrentScore = Mathf.RoundToInt(_maxMagnitudeOfCurrentShot);
             }
-            maxMagnitudeOfCurrentShot = 0;
+            _maxMagnitudeOfCurrentShot = 0;
         }
 
         if (model.a) model.a.enabled = wiimote.Button.a;
