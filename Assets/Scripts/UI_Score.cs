@@ -11,7 +11,6 @@ public class UI_Score : MonoBehaviour
 
     public void SetScore(float score)
     {
-        Debug.Log("SET SCORE");
         _scoreText.text = score.ToString();
         for (int i = 0; i < _colorLevelList.Count; i++)
         {
