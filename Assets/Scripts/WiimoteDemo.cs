@@ -45,17 +45,23 @@ public class WiimoteDemo : MonoBehaviour
             }
         } while (ret > 0);
 
-        model.a.enabled = wiimote.Button.a;
-        model.b.enabled = wiimote.Button.b;
-        model.one.enabled = wiimote.Button.one;
-        model.two.enabled = wiimote.Button.two;
-        model.d_up.enabled = wiimote.Button.d_up;
-        model.d_down.enabled = wiimote.Button.d_down;
-        model.d_left.enabled = wiimote.Button.d_left;
-        model.d_right.enabled = wiimote.Button.d_right;
-        model.plus.enabled = wiimote.Button.plus;
-        model.minus.enabled = wiimote.Button.minus;
-        model.home.enabled = wiimote.Button.home;
+        Debug.Log("Accel Data:" + wiimote.Accel.accel.Length);
+        for (int i = 0; i < wiimote.Accel.accel.Length; i++)
+        {
+            Debug.Log(wiimote.Accel.accel[i]);
+        }
+
+        if (model.a) model.a.enabled = wiimote.Button.a;
+        if (model.b) model.b.enabled = wiimote.Button.b;
+        if (model.one) model.one.enabled = wiimote.Button.one;
+        if (model.two) model.two.enabled = wiimote.Button.two;
+        if (model.d_up) model.d_up.enabled = wiimote.Button.d_up;
+        if (model.d_down) model.d_down.enabled = wiimote.Button.d_down;
+        if (model.d_left) model.d_left.enabled = wiimote.Button.d_left;
+        if (model.d_right) model.d_right.enabled = wiimote.Button.d_right;
+        if (model.plus) model.plus.enabled = wiimote.Button.plus;
+        if (model.minus) model.minus.enabled = wiimote.Button.minus;
+        if (model.home) model.home.enabled = wiimote.Button.home;
 
         if (wiimote.current_ext != ExtensionController.MOTIONPLUS)
         {
