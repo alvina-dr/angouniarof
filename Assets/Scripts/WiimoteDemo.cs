@@ -390,8 +390,10 @@ public class WiimoteDemo : MonoBehaviour
     {
         if (wiimote != null)
         {
+            Debug.Log("Cleaning up Wiimote.");
             WiimoteManager.Cleanup(wiimote);
             wiimote = null;
+            WiimoteManager.Shutdown();
         }
     }
 }
