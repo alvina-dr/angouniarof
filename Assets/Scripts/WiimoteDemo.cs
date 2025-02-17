@@ -60,7 +60,12 @@ public class WiimoteDemo : MonoBehaviour
         lineChart.AddData(0, DateTime.Now, magnitude);
 
         // Length is always 3 (X, Y, Z)
-        Debug.Log($"Accel Data X: {accel.x}, Y: {accel.y}, Z: {accel.z}, Magnitude: {magnitude}");
+        //Debug.Log($"Accel Data X: {accel.x}, Y: {accel.y}, Z: {accel.z}, Magnitude: {magnitude}");
+        if (magnitude > GameManager.Instance.MinimumMagnitude)
+        {
+            Debug.Log("SHOOT");
+            GameManager.Instance.ScoreText.SetScore(magnitude);
+        }
 
         if (model.a) model.a.enabled = wiimote.Button.a;
         if (model.b) model.b.enabled = wiimote.Button.b;
